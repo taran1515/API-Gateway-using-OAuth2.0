@@ -3,12 +3,13 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 
 import requests
-
+# from django.contrib.auth.models import User
+from .models import UserProfile
 from .serializers import CreateUserSerializer
 
 
-CLIENT_ID = '<client-id>'
-CLIENT_SECRET = '<client-secret>'
+CLIENT_ID = 'hQ2vwrgPjEi21s8idlpPuJ5ajAi5Bz5WxK59Y7X9'
+CLIENT_SECRET = 'Wx6l5uQwmHIedM7MOxUdYVOG9sMLmSoxdzwSxLSxKtB6Gr4RVCmohcHgh7smAF1fQ2y312TEjNuuqfaJF06lIkD8uDvzSOmQPy18FTJbmkOMLxre8xw9hCP81yTLyDM4'
 
 
 
@@ -27,10 +28,10 @@ def register(request):
         serializer.save() 
         # Then we get a token for the created user.
         # This could be done differentley 
-        r = requests.post('http://0.0.0.0:8000/o/token/', 
+        r = requests.post('http://127.0.0.1:8000/o/token/', 
             data={
                 'grant_type': 'password',
-                'username': request.data['username'],
+                'username': request.data['email'],
                 'password': request.data['password'],
                 'client_id': CLIENT_ID,
                 'client_secret': CLIENT_SECRET,
@@ -49,10 +50,10 @@ def token(request):
     {"username": "username", "password": "1234abcd"}
     '''
     r = requests.post(
-    'http://0.0.0.0:8000/o/token/', 
+    'http://127.0.0.1:8000/o/token/', 
         data={
             'grant_type': 'password',
-            'username': request.data['username'],
+            'username': request.data['email'],
             'password': request.data['password'],
             'client_id': CLIENT_ID,
             'client_secret': CLIENT_SECRET,
@@ -70,7 +71,7 @@ def refresh_token(request):
     {"refresh_token": "<token>"}
     '''
     r = requests.post(
-    'http://0.0.0.0:8000/o/token/', 
+    'http://127.0.0.1:8000/o/token/', 
         data={
             'grant_type': 'refresh_token',
             'refresh_token': request.data['refresh_token'],
@@ -89,7 +90,7 @@ def revoke_token(request):
     {"token": "<token>"}
     '''
     r = requests.post(
-        'http://0.0.0.0:8000/o/revoke_token/', 
+        'http://127.0.0.1:8000/o/revoke_token/', 
         data={
             'token': request.data['token'],
             'client_id': CLIENT_ID,
@@ -99,5 +100,5 @@ def revoke_token(request):
     # If it goes well return sucess message (would be empty otherwise) 
     if r.status_code == requests.codes.ok:
         return Response({'message': 'token revoked'}, r.status_code)
-    # Return the error if it goes badly
+    # Return the error 
     return Response(r.json(), r.status_code)

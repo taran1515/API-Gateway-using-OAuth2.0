@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from client_app.todo.views import TodoViewSet
+
+router = DefaultRouter() 
+router.register('todo', TodoViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('oauth/', include('client_app.users.urls')),
+    path('home/', include(router.urls)),
 ]

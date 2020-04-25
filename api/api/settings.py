@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'rest_framework', 
     'client_app.users',
+    'client_app.todo',
 ]
 
 MIDDLEWARE = [

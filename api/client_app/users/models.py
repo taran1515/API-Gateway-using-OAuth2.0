@@ -5,7 +5,10 @@ from .manager import UserProfileManager
 
 
 class UserProfile(AbstractUser):
-
+    """
+    Custom UserProfile Model with email as username field 
+    so that authentication is done using email.
+    """
     username = None
     email =  models.EmailField(max_length=255,unique=True,)
     USERNAME_FIELD = 'email'

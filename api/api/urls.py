@@ -18,7 +18,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from client_app.todo.views import TodoViewSet
 
-router = DefaultRouter() 
+router = DefaultRouter()
 router.register('todo', TodoViewSet)
 
 urlpatterns = [

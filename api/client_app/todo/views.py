@@ -3,8 +3,9 @@ from rest_framework import viewsets
 
 # Create your views here.
 
-from .models import Todo 
+from .models import Todo
 from .serializers import TodoSerializer
+
 
 class TodoViewSet(viewsets.ModelViewSet):
 

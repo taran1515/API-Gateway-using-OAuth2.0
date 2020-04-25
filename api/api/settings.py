@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'oauth2_provider',
     'rest_framework', 
+    'client_app.users',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,7 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend' 
+    'django.contrib.auth.backends.ModelBackend', 
     'oauth2_provider.backends.OAuth2Backend',
 )
 
